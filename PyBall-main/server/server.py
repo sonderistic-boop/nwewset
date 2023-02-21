@@ -4,20 +4,22 @@ from _thread import *
 from network import get_ip
 class pyBallServer:
     
-    def __init__(self,stadium):
+    def __init__(self):
         
         self.port = 5555
         self.serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
         self.gamesettings = {
-            "stadium" : None,
-            "players" : {},
-            "redteam" : [],
-            "blueteam" : []
+            "stadium" : "smallStadium",
+            "time" : 5
+            "maxScore": 3 
+            
         }
             
-        
-
+        players = {}
+        """
+            player should have team,address,
+        """
         try:
             self.serverSocket.bind(("localhost", self.port))
         except socket.error as e:
@@ -65,9 +67,14 @@ class pyBallServer:
         
 
 
-        start_new_thread(threaded_client, (connection, player, gameId))
+        start_new_thread(threaded_client, (connection))
 
 
+        
+        
+        
+        
+        
    
  
 servernew = pyBallServer("smallStadium")
